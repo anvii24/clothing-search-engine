@@ -58,3 +58,17 @@ All mandatory test queries (10 free-text, 5 phrase, 3 proximity with different k
 See screenshots in `screenshots/freetext/`, `screenshots/phrase/`, `screenshots/proximity/`, and `screenshots/nonexistent_term/` for the top-10 (or full match) output of every required test query.
 
 # Cases where positional information changes the result set/order:
+
+Case 1: "cotton shirt"
+
+In the free-text (VSM) search, D011 ("Men's Oversized Graphic T-Shirt") and D071 both rank in the top 10 (score 0.2375) because the document contains both "cotton" and "shirt" somewhere in its description VSM only checks co-occurrence, not word order or adjacency.
+
+The exact phrase search for "cotton shirt" excludes both documents entirely. Checking the positions in the positional index, "cotton" and "shirt" appear far apart in these descriptions and never as consecutive tokens, so there is no valid phrase match, even though the free-text score treated them as relevant.
+
+This shows VSM can over-rank documents that merely mention both query words anywhere, while phrase search correctly filters to only documents where the words form the exact expression the user searched for.
+
+Case 2: "regular fit"
+
+In the free-text search, D076, D036, D016, D056, D096 (all "Women's Casual Fit Dress") rank in the top 10 for the query "regular fit" because each description contains the word "fit" (from "casual fit"), and VSM's cosine similarity gives partial term overlap.
+
+The exact phrase search excludes all five. Their positional data shows "fit" is preceded by "casual," not "regular", so position-based matching (checking that "regular" sits immediately before "fit") correctly rejects them, while VSM cannot differentiate between "regular fit" from "casual fit" since it only sees that "fit" is present.
