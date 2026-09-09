@@ -3,6 +3,7 @@
 Information Retrieval Assignment: a small search engine over a 100-document clothing product corpus, implementing ranked retrieval (VSM) and positional (phrase/proximity) search.
 
 # Setup
+
 bash
 pip install nltk streamlit
 python -c "import nltk; nltk.download('stopwords')"
@@ -28,7 +29,6 @@ python generate_outputs.py
 
 Text is lowercased, punctuation is stripped (replaced with spaces so words don't merge together), and each token is stemmed using NLTK's Porter Stemmer. Stop-word removal uses **NLTK's standard English stopword list** (`nltk.corpus.stopwords`), applied identically to every document and every query- this consistency is what makes document and query vectors comparable in Part B.
 
-
 # Part B: Vector Space Model
 
 - Document term weight: `1 + log10(tf)` - no idf.
@@ -38,6 +38,7 @@ Text is lowercased, punctuation is stripped (replaced with spaces so words don't
 # Part C: Positional index
 
 Every posting stores the exact token positions of a term within a document (after the same tokenize/stem/stopword pipeline as Part A). This supports:
+
 - **Exact phrase search** - terms must appear at consecutive positions, in order.
 - **Ordered proximity search** - `term1 WITHIN/k term2` — term2 must occur within k positions after term1.
 
@@ -50,7 +51,7 @@ Every posting stores the exact token positions of a term within a document (afte
 
 All mandatory test queries (10 free-text, 5 phrase, 3 proximity with different k values, 1 nonexistent-term query) were run manually through both interfaces; results are captured in `screenshots/`.
 
-# Part E — Test Analysis
+# Test Analysis Results
 
 # Top-10 results
 
