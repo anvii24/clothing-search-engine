@@ -2,6 +2,9 @@
 
 Information Retrieval Assignment: a small search engine over a 100-document clothing product corpus, implementing ranked retrieval (VSM) and positional (phrase/proximity) search.
 
+**Submitted by: Anvi Gupta (2410110520), Antara Shyam (2410110518)**
+**Github Link: https://github.com/anvii24/clothing-search-engine.git**
+
 # Setup
 
 bash
